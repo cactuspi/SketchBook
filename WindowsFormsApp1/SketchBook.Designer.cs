@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-    partial class Form1
+    partial class SketchBook
     {
         /// <summary>
         /// Required designer variable.
@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.canvas = new System.Windows.Forms.Panel();
+            this.newButton = new System.Windows.Forms.Button();
+            this.saveButton = new System.Windows.Forms.Button();
+            this.loadButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.blackBox = new System.Windows.Forms.PictureBox();
             this.pinkBox = new System.Windows.Forms.PictureBox();
@@ -38,9 +41,7 @@
             this.yellowBox = new System.Windows.Forms.PictureBox();
             this.orangeBox = new System.Windows.Forms.PictureBox();
             this.redBox = new System.Windows.Forms.PictureBox();
-            this.loadButton = new System.Windows.Forms.Button();
-            this.saveButton = new System.Windows.Forms.Button();
-            this.newButton = new System.Windows.Forms.Button();
+            this.sfd = new System.Windows.Forms.SaveFileDialog();
             this.canvas.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.blackBox)).BeginInit();
@@ -68,9 +69,43 @@
             this.canvas.MouseMove += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseMove);
             this.canvas.MouseUp += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseUp);
             // 
+            // newButton
+            // 
+            this.newButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.newButton.Location = new System.Drawing.Point(174, 8);
+            this.newButton.Name = "newButton";
+            this.newButton.Size = new System.Drawing.Size(75, 23);
+            this.newButton.TabIndex = 3;
+            this.newButton.Text = "New";
+            this.newButton.UseVisualStyleBackColor = false;
+            this.newButton.Click += new System.EventHandler(this.newButton_Click);
+            // 
+            // saveButton
+            // 
+            this.saveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.saveButton.Location = new System.Drawing.Point(93, 8);
+            this.saveButton.Name = "saveButton";
+            this.saveButton.Size = new System.Drawing.Size(75, 23);
+            this.saveButton.TabIndex = 2;
+            this.saveButton.Text = "Save";
+            this.saveButton.UseVisualStyleBackColor = false;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+            // 
+            // loadButton
+            // 
+            this.loadButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.loadButton.Location = new System.Drawing.Point(12, 8);
+            this.loadButton.Name = "loadButton";
+            this.loadButton.Size = new System.Drawing.Size(75, 23);
+            this.loadButton.TabIndex = 1;
+            this.loadButton.Text = "Load";
+            this.loadButton.UseVisualStyleBackColor = false;
+            this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
+            // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.panel1.BackColor = System.Drawing.Color.Thistle;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.blackBox);
             this.panel1.Controls.Add(this.pinkBox);
             this.panel1.Controls.Add(this.blueBox);
@@ -79,15 +114,16 @@
             this.panel1.Controls.Add(this.yellowBox);
             this.panel1.Controls.Add(this.orangeBox);
             this.panel1.Controls.Add(this.redBox);
-            this.panel1.Location = new System.Drawing.Point(640, 12);
+            this.panel1.Location = new System.Drawing.Point(519, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(137, 68);
+            this.panel1.Size = new System.Drawing.Size(278, 38);
             this.panel1.TabIndex = 0;
             // 
             // blackBox
             // 
             this.blackBox.BackColor = System.Drawing.Color.Black;
-            this.blackBox.Location = new System.Drawing.Point(105, 37);
+            this.blackBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.blackBox.Location = new System.Drawing.Point(241, 3);
             this.blackBox.Name = "blackBox";
             this.blackBox.Size = new System.Drawing.Size(28, 28);
             this.blackBox.TabIndex = 7;
@@ -97,7 +133,8 @@
             // pinkBox
             // 
             this.pinkBox.BackColor = System.Drawing.Color.Fuchsia;
-            this.pinkBox.Location = new System.Drawing.Point(71, 37);
+            this.pinkBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pinkBox.Location = new System.Drawing.Point(3, 3);
             this.pinkBox.Name = "pinkBox";
             this.pinkBox.Size = new System.Drawing.Size(28, 28);
             this.pinkBox.TabIndex = 6;
@@ -107,7 +144,8 @@
             // blueBox
             // 
             this.blueBox.BackColor = System.Drawing.Color.Blue;
-            this.blueBox.Location = new System.Drawing.Point(37, 37);
+            this.blueBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.blueBox.Location = new System.Drawing.Point(173, 3);
             this.blueBox.Name = "blueBox";
             this.blueBox.Size = new System.Drawing.Size(28, 28);
             this.blueBox.TabIndex = 5;
@@ -117,7 +155,8 @@
             // cyanBox
             // 
             this.cyanBox.BackColor = System.Drawing.Color.Cyan;
-            this.cyanBox.Location = new System.Drawing.Point(3, 37);
+            this.cyanBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.cyanBox.Location = new System.Drawing.Point(139, 3);
             this.cyanBox.Name = "cyanBox";
             this.cyanBox.Size = new System.Drawing.Size(28, 28);
             this.cyanBox.TabIndex = 4;
@@ -127,7 +166,8 @@
             // greenBox
             // 
             this.greenBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.greenBox.Location = new System.Drawing.Point(105, 3);
+            this.greenBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.greenBox.Location = new System.Drawing.Point(207, 3);
             this.greenBox.Name = "greenBox";
             this.greenBox.Size = new System.Drawing.Size(28, 28);
             this.greenBox.TabIndex = 3;
@@ -137,7 +177,8 @@
             // yellowBox
             // 
             this.yellowBox.BackColor = System.Drawing.Color.Yellow;
-            this.yellowBox.Location = new System.Drawing.Point(71, 3);
+            this.yellowBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.yellowBox.Location = new System.Drawing.Point(105, 3);
             this.yellowBox.Name = "yellowBox";
             this.yellowBox.Size = new System.Drawing.Size(28, 28);
             this.yellowBox.TabIndex = 2;
@@ -147,7 +188,8 @@
             // orangeBox
             // 
             this.orangeBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.orangeBox.Location = new System.Drawing.Point(37, 3);
+            this.orangeBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.orangeBox.Location = new System.Drawing.Point(71, 3);
             this.orangeBox.Name = "orangeBox";
             this.orangeBox.Size = new System.Drawing.Size(28, 28);
             this.orangeBox.TabIndex = 1;
@@ -157,54 +199,26 @@
             // redBox
             // 
             this.redBox.BackColor = System.Drawing.Color.Red;
-            this.redBox.Location = new System.Drawing.Point(3, 3);
+            this.redBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.redBox.Location = new System.Drawing.Point(37, 3);
             this.redBox.Name = "redBox";
             this.redBox.Size = new System.Drawing.Size(28, 28);
             this.redBox.TabIndex = 0;
             this.redBox.TabStop = false;
             this.redBox.Click += new System.EventHandler(this.blackBox_Click);
             // 
-            // loadButton
+            // sfd
             // 
-            this.loadButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.loadButton.Location = new System.Drawing.Point(12, 12);
-            this.loadButton.Name = "loadButton";
-            this.loadButton.Size = new System.Drawing.Size(75, 23);
-            this.loadButton.TabIndex = 1;
-            this.loadButton.Text = "Load";
-            this.loadButton.UseVisualStyleBackColor = false;
-            this.loadButton.Click += new System.EventHandler(this.loadButton_Click);
+            this.sfd.HelpRequest += new System.EventHandler(this.saveButton_Click);
             // 
-            // saveButton
-            // 
-            this.saveButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.saveButton.Location = new System.Drawing.Point(93, 12);
-            this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(75, 23);
-            this.saveButton.TabIndex = 2;
-            this.saveButton.Text = "Save";
-            this.saveButton.UseVisualStyleBackColor = false;
-            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
-            // 
-            // newButton
-            // 
-            this.newButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.newButton.Location = new System.Drawing.Point(12, 41);
-            this.newButton.Name = "newButton";
-            this.newButton.Size = new System.Drawing.Size(75, 23);
-            this.newButton.TabIndex = 3;
-            this.newButton.Text = "New";
-            this.newButton.UseVisualStyleBackColor = false;
-            this.newButton.Click += new System.EventHandler(this.newButton_Click);
-            // 
-            // Form1
+            // SketchBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.canvas);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "SketchBook";
+            this.Text = "SketchBook";
             this.canvas.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.blackBox)).EndInit();
@@ -234,6 +248,7 @@
         private System.Windows.Forms.Button newButton;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button loadButton;
+        private System.Windows.Forms.SaveFileDialog sfd;
     }
 }
 

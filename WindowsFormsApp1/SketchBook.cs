@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,15 +11,21 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class Form1 : Form
+
+    public partial class SketchBook : Form
     {
         Graphics graphics;
+        Graphics graph;
         Boolean cursorMoving = false;
         Pen cursorPen;
         int cursorX = -1;
         int cursorY = -1;
 
-        public Form1()
+        Bitmap surface;
+      
+
+
+        public SketchBook()
         {
             InitializeComponent();
             graphics = canvas.CreateGraphics();
@@ -26,6 +33,10 @@ namespace WindowsFormsApp1
             graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             cursorPen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
             cursorPen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
+
+            surface = new Bitmap(canvas.Width, canvas.Height);
+
+            graph = Graphics.FromImage(surface);
 
         }
 
@@ -67,10 +78,27 @@ namespace WindowsFormsApp1
         private void saveButton_Click(object sender, EventArgs e)
         {
 
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            sfd.Filter = "Png Files (*.png)|*.png";
+            sfd.DefaultExt = "png";
+            sfd.AddExtension = true;
+
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                surface.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                MessageBox.Show("Saved File");
+
+            }
+
         }
+
 
         private void newButton_Click(object sender, EventArgs e)
         {
+            canvas.Invalidate();
+            MessageBox.Show("This will clear the canvas");
 
         }
     }
