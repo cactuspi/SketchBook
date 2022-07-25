@@ -72,7 +72,7 @@ namespace WindowsFormsApp1
 
         private void loadButton_Click(object sender, EventArgs e)
         {
-
+          
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -97,8 +97,19 @@ namespace WindowsFormsApp1
 
         private void newButton_Click(object sender, EventArgs e)
         {
-            canvas.Invalidate();
-            MessageBox.Show("This will clear the canvas");
+
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to clear your canvas?", "New Canvas?", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                canvas.Invalidate();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                MessageBox.Show("You can continue drawing.", "New Canvas?");
+
+            }
+
+
 
         }
     }
