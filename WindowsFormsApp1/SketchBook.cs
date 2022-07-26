@@ -15,30 +15,39 @@ namespace WindowsFormsApp1
     public partial class SketchBook : Form
     {
         Graphics graphics;
-        Graphics graph;
         Boolean cursorMoving = false;
-        Pen cursorPen;
+        public Pen cursorPen;
         int cursorX = -1;
         int cursorY = -1;
-
         Bitmap surface;
-      
+
 
 
         public SketchBook()
         {
             InitializeComponent();
+            GenerateVaribles();
+
+        }
+
+        void GenerateVaribles()
+        {
             graphics = canvas.CreateGraphics();
+            CreateCanvas();
+        }
+
+        void CreateCanvas()
+        {
+            surface = new Bitmap(canvas.Width, canvas.Height);
+            graphics = Graphics.FromImage(surface);
+            canvas.BackgroundImage = surface;
+            canvas.BackgroundImageLayout = ImageLayout.None;
             cursorPen = new Pen(Color.Black, 7);
             graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             cursorPen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
             cursorPen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
-
-            surface = new Bitmap(canvas.Width, canvas.Height);
-
-            graph = Graphics.FromImage(surface);
-
         }
+
 
         private void blackBox_Click(object sender, EventArgs e)
         {
@@ -62,17 +71,18 @@ namespace WindowsFormsApp1
 
         private void canvas_MouseMove(object sender, MouseEventArgs e)
         {
-            if(cursorX != -1 && cursorY != -1 & cursorMoving == true)
+            if (cursorX != -1 && cursorY != -1 & cursorMoving == true)
             {
                 graphics.DrawLine(cursorPen, new Point(cursorX, cursorY), e.Location);
                 cursorX = e.X;
                 cursorY = e.Y;
+                canvas.Invalidate();
             }
         }
 
         private void loadButton_Click(object sender, EventArgs e)
         {
-          
+
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -101,7 +111,7 @@ namespace WindowsFormsApp1
             DialogResult dialogResult = MessageBox.Show("Are you sure you want to clear your canvas?", "New Canvas?", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                canvas.Invalidate();
+                CreateCanvas();
             }
             else if (dialogResult == DialogResult.No)
             {
