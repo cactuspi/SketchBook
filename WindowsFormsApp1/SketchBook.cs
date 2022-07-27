@@ -82,25 +82,50 @@ namespace WindowsFormsApp1
 
         private void loadButton_Click(object sender, EventArgs e)
         {
+            try
+            {
+                OpenFileDialog open = new OpenFileDialog();
+                open.Filter = "Image Files(*.jpg; *jpeg; *gif; *bmp)|*.jpg; *jpeg; *.gif; *.bmp";
+                if (open.ShowDialog() == DialogResult.OK)
+                {
+                    canvas.BackgroundImage = Image.FromFile(open.FileName);
 
+                }
+            }
+
+            catch (Exception)
+            {
+                throw new ApplicationException("Failed loading image");
+            }
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-
-            SaveFileDialog sfd = new SaveFileDialog();
-
-            sfd.Filter = "Png Files (*.png)|*.png";
-            sfd.DefaultExt = "png";
-            sfd.AddExtension = true;
-
-
-            if (sfd.ShowDialog() == DialogResult.OK)
+            try
             {
-                surface.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
-                MessageBox.Show("Saved File");
+                SaveFileDialog sfd = new SaveFileDialog();
+
+                sfd.Filter = "Png Files (*.png)|*.png";
+                sfd.DefaultExt = "png";
+                sfd.AddExtension = true;
+
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    surface.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
+                    MessageBox.Show("Saved File");
+
+                }
+
 
             }
+            
+             catch (Exception)
+            {
+                MessageBox.Show("There is a problem saving the file." +
+                    "Check the file permissions.");
+            }
+
 
         }
 
