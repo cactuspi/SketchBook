@@ -48,7 +48,7 @@ namespace WindowsFormsApp1
             cursorPen.EndCap = System.Drawing.Drawing2D.LineCap.Round;
         }
 
-
+        
         private void blackBox_Click(object sender, EventArgs e)
         {
             PictureBox color = (PictureBox)sender;
@@ -85,10 +85,12 @@ namespace WindowsFormsApp1
             try
             {
                 OpenFileDialog open = new OpenFileDialog();
-                open.Filter = "Image Files(*.jpg; *jpeg; *gif; *bmp)|*.jpg; *jpeg; *.gif; *.bmp";
+                open.Filter = "Image Files(*.jpg; *jpeg; *gif; *bmp; *png)|*.jpg; *jpeg; *.gif; *.bmp; *.png";
                 if (open.ShowDialog() == DialogResult.OK)
                 {
                     canvas.BackgroundImage = Image.FromFile(open.FileName);
+                    
+                    //cannot edit image after loading - convert back into image map 
 
                 }
             }
