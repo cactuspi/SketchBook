@@ -42,6 +42,7 @@
             this.orangeBox = new System.Windows.Forms.PictureBox();
             this.redBox = new System.Windows.Forms.PictureBox();
             this.sfd = new System.Windows.Forms.SaveFileDialog();
+            this.errorButton = new System.Windows.Forms.Button();
             this.canvas.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.blackBox)).BeginInit();
@@ -56,6 +57,7 @@
             // 
             // canvas
             // 
+            this.canvas.Controls.Add(this.errorButton);
             this.canvas.Controls.Add(this.newButton);
             this.canvas.Controls.Add(this.saveButton);
             this.canvas.Controls.Add(this.loadButton);
@@ -211,6 +213,17 @@
             // 
             this.sfd.HelpRequest += new System.EventHandler(this.saveButton_Click);
             // 
+            // errorButton
+            // 
+            this.errorButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.errorButton.Location = new System.Drawing.Point(255, 8);
+            this.errorButton.Name = "errorButton";
+            this.errorButton.Size = new System.Drawing.Size(75, 23);
+            this.errorButton.TabIndex = 4;
+            this.errorButton.Text = "Error";
+            this.errorButton.UseVisualStyleBackColor = false;
+            this.errorButton.Click += new System.EventHandler(this.errorButton_Click);
+            // 
             // SketchBook
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -249,6 +262,7 @@
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button loadButton;
         private System.Windows.Forms.SaveFileDialog sfd;
+        private System.Windows.Forms.Button errorButton;
     }
 }
 

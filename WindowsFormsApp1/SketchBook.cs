@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace WindowsFormsApp1
         int cursorX = -1;
         int cursorY = -1;
         Bitmap surface;
+
+        Class1 obj = new Class1();
 
 
 
@@ -84,19 +87,24 @@ namespace WindowsFormsApp1
         {
             try
             {
+                
                 OpenFileDialog open = new OpenFileDialog();
                 open.Filter = "Image Files(*.jpg; *jpeg; *gif; *bmp; *png)|*.jpg; *jpeg; *.gif; *.bmp; *.png";
+
                 if (open.ShowDialog() == DialogResult.OK)
                 {
-                    canvas.BackgroundImage = Image.FromFile(open.FileName);
-                    
+
+                    canvas.BackgroundImage = new Bitmap(open.FileName);
+
                     //cannot edit image after loading - convert back into image map 
 
                 }
+
             }
 
             catch (Exception)
             {
+                obj.LogWrite("Failed to Load");
                 throw new ApplicationException("Failed loading image");
             }
         }
@@ -111,12 +119,10 @@ namespace WindowsFormsApp1
                 sfd.DefaultExt = "png";
                 sfd.AddExtension = true;
 
-
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     surface.Save(sfd.FileName, System.Drawing.Imaging.ImageFormat.Png);
                     MessageBox.Show("Saved File");
-
                 }
 
 
@@ -124,6 +130,7 @@ namespace WindowsFormsApp1
             
              catch (Exception)
             {
+                obj.LogWrite("Failed to save");
                 MessageBox.Show("There is a problem saving the file." +
                     "Check the file permissions.");
             }
@@ -146,7 +153,34 @@ namespace WindowsFormsApp1
 
             }
 
+        }
 
+
+
+
+        private void errorButton_Click(object sender, EventArgs e)
+        {
+            // button populates txt file that shows  possible errors
+
+            Class1 obj = new Class1();
+
+            try
+            {
+                string path = "D://ErrorLog.txt";
+                if (System.IO.File.Exists(path))
+                {
+                    Process.Start("notepad.exe", "D://ErrorLog.txt");
+                }
+             
+                obj.LogWrite("errorButton Clicked");
+
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show("failed to write text file");
+                obj.LogWrite("Exception " + ex.ToString());
+            }
 
         }
     }
